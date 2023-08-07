@@ -43,14 +43,14 @@ class Image_Converter:
             msg.encoding = 'mono8'
             self.image_pub.publish(msg)
             
-        except CvBridgeError, e:
-            print e
+        except CvBridgeError as e:
+            print (e)
             
     def main(self):
       try:
         rospy.spin()
       except KeyboardInterrupt:
-        print "Shutting down"
+        print ("Shutting down")
       cv2.destroyAllWindows()
 
 ################################################################################

@@ -72,7 +72,8 @@ class Optic_Flow_Calculator:
         
         # Lucas Kanade Publisher
         self.optic_flow_pub = rospy.Publisher("optic_flow", OpticFlowMsg, queue_size=10)
-        self.optic_flow_pub_mean = rospy.Publisher("optic_flow_mean_vx", Float32, queue_size=10)
+        self.optic_flow_pub_meanx = rospy.Publisher("optic_flow_mean_vx", Float32, queue_size=10)
+        self.optic_flow_pub_meany = rospy.Publisher("optic_flow_mean_vy", Float32, queue_size=10)
         
         # Raw Image Subscriber
         self.image_sub = rospy.Subscriber(self.image_source,Image,self.image_callback)
@@ -119,20 +120,21 @@ class Optic_Flow_Calculator:
             self.optic_flow_pub.publish(msg)
             
             # publish mean optic flow vx data
-            self.optic_flow_pub_mean.publish(Float32(np.mean(flow[:,0,0])))
+            self.optic_flow_pub_meanx.publish(Float32(np.mean(flow[:,0,0])))
+            self.optic_flow_pub_meany.publish(Float32(np.mean(flow[:,0,1])))
             
             # save current image and time for next loop
             self.prev_image = curr_image
             self.last_time = curr_time
             
-        except CvBridgeError, e:
-            print e
+        except CvBridgeError as e:
+            print (e)
             
     def main(self):
         try:
             rospy.spin()
         except KeyboardInterrupt:
-            print "Shutting down"
+            print ("Shutting down")
             cv2.destroyAllWindows()
             
 ################################################################################

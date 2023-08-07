@@ -103,8 +103,8 @@ class Image_Processor:
             
             self.prev_image = curr_image
             
-        except CvBridgeError, e:
-            print e
+        except CvBridgeError as e:
+            print (e)
             
 ################################################################################
   
@@ -113,7 +113,7 @@ def main():
   try:
     rospy.spin()
   except KeyboardInterrupt:
-    print "Shutting down"
+    print ("Shutting down")
   cv.DestroyAllWindows()
 
 ################################################################################
