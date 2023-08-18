@@ -22,24 +22,24 @@ from optic_flow_example.msg import OpticFlowMsg
 
 ################################################################################
 
-def draw_optic_flow_field(gray_image, points, flow):
-    '''
-    gray_image: opencv gray image, e.g. shape = (width, height)
-    points: points at which optic flow is tracked, e.g. shape = (npoints, 1, 2)
-    flow: optic flow field, should be same shape as points
-    '''
-    color_img = cv2.cvtColor(gray_image, cv2.COLOR_GRAY2BGR)
-    color_red = [0,0,255] # bgr colorspace
-    linewidth = 1
-    for i, point in enumerate(points):
-        x = point[0,0]
-        y = point[0,1]
-        vx = flow[i][0,0]
-        vy = flow[i][0,1]
-        cv2.line(color_img, (x,y), (x+vx, y+vy), color_red, linewidth) # draw a red line from the point with vector = [vx, vy]        
+# def draw_optic_flow_field(gray_image, points, flow):
+#     '''
+#     gray_image: opencv gray image, e.g. shape = (width, height)
+#     points: points at which optic flow is tracked, e.g. shape = (npoints, 1, 2)
+#     flow: optic flow field, should be same shape as points
+#     '''
+#     color_img = cv2.cvtColor(gray_image, cv2.COLOR_GRAY2BGR)
+#     color_red = [0,0,255] # bgr colorspace
+#     linewidth = 1
+#     for i, point in enumerate(points):
+#         x = point[0,0]
+#         y = point[0,1]
+#         vx = flow[i][0,0]
+#         vy = flow[i][0,1]
+#         cv2.line(color_img, (x,y), (x+vx, y+vy), color_red, linewidth) # draw a red line from the point with vector = [vx, vy]        
     
-    cv2.imshow('optic_flow_field',color_img)
-    cv2.waitKey(1)
+#     cv2.imshow('optic_flow_field',color_img)
+#     cv2.waitKey(1)
 
 ################################################################################
     
@@ -106,7 +106,7 @@ class Optic_Flow_Calculator:
             flow = new_position_of_tracked_points - self.points_to_track
             
             # draw the flow field
-            draw_optic_flow_field(curr_image, self.points_to_track, flow)
+            # draw_optic_flow_field(curr_image, self.points_to_track, flow)
             
             # publish optic flow data to rostopic
             msg = OpticFlowMsg()
